@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bby Will You Be My Valentine? ❤️</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(160deg, #ff8fab, #ff4f7a);
+      color: #fff;
+      text-align: center;
+      overflow-x: hidden;
+    }
+    section {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 28px;
+      animation: fadeIn 1s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    h1, h2 {
+      margin-bottom: 12px;
+      letter-spacing: 0.5px;
+    }
+    p {
+      max-width: 740px;
+      font-size: 18px;
+      line-height: 1.75;
+    }
+    .btn-group {
+      display: flex;
+      gap: 22px;
+      margin-top: 34px;
+    }
+    button {
+      background: #fff;
+      color: #ff4f7a;
+      border: none;
+      padding: 14px 30px;
+      border-radius: 999px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    button:hover { transform: scale(1.1); }
+    .hidden { display: none; }
+
+    /* floating hearts */
+    .heart {
+      position: fixed;
+      bottom: -20px;
+      font-size: 26px;
+      animation: floatUp linear infinite;
+      opacity: 0.85;
+      pointer-events: none;
+    }
+    @keyframes floatUp {
+      from { transform: translateY(0); opacity: 1; }
+      to { transform: translateY(-120vh); opacity: 0; }
+    }
+
+    /* gallery flip cards */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 22px;
+      margin-top: 28px;
+      max-width: 900px;
+      perspective: 1000px;
+    }
+    .card {
+      width: 100%;
+      height: 250px;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.8s;
+      cursor: pointer;
+    }
+    .card.flipped { transform: rotateY(180deg); }
+    .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 22px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card-face img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .card-back {
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(8px);
+      transform: rotateY(180deg);
+      padding: 20px;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* spotify-style playlist */
+    .song-list {
+      margin-top: 30px;
+      width: 100%;
+      max-width: 560px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .playlist-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      background: rgba(20,20,20,0.35);
+      border-radius: 18px;
+      padding: 14px 18px;
+      backdrop-filter: blur(10px);
+    }
+    .track-info {
+      text-align: left;
+      flex: 1;
+    }
+    .track-title { font-weight: 600; font-size: 16px; }
+    .track-sub { font-size: 13px; opacity: 0.85; }
+    .play-btn {
+      background: #1db954;
+      color: #000;
+      border: none;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    /* stickers & gifs */
+    .stickers {
+      display: flex;
+      gap: 18px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .stickers img {
+      width: 90px;
+      border-radius: 14px;
+    }
+
+    .soft-note { font-size: 15px; opacity: 0.9; margin-top: 16px; }
+
+    /* page gifs */
+    .page-gif {
+      position: absolute;
+      width: 90px;
+      max-width: 25vw;
+      pointer-events: none;
+    }
+    .page-gif.left { left: 20px; bottom: 20px; }
+    .page-gif.right { right: 20px; bottom: 20px; }
+    .page-gif.top { top: 20px; right: 20px; }
+
+    /* CENTER MEDIA */
+.media-center {
+  margin: 18px 0 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.media-center img,
+.media-center video {
+  width: 120px;
+  max-width: 60vw;
+  border-radius: 16px;
+}
+  </style>
+</head>
+<body>
+
+<!-- PAGE 1 -->
+<section id="page1">
+  <h1>Muskan, Will You Be My Valentine? 💌</h1>
+  <div class="media-center">
+    <img src="gifs/gif4.webp">
+  </div>
+  <p>
+    I know it hasn’t been very long… but somehow,
+    you already feel like someone really special to me.
+  </p>
+  <div class="btn-group">
+    <button onclick="yesAnswer()">YES 💖</button>
+    <button id="noBtn" onmouseover="moveButton()">NO 🙈</button>
+  </div>
+</section>
+
+<!-- PAGE 2 -->
+<section id="page2" class="hidden">
+  <h1>You Said YES!!! 🎉❤️</h1>
+    <div class="media-center">
+    <video src="gifs/gif3.mp4" autoplay loop muted playsinline></video>
+  </div>
+  <p>
+    We’ve only known each other for a short time,
+    but every moment with you feels special and absolutely worth it.
+    <br><br>
+    First date pr tumhari wo cutiee si accent se lekar tumhara haircut ke liye gussa hona.
+    Tumhara ghar par jhoot bolkar mujhse milne aana and almost everything in general it all feels right,bby just really glad to have met you.
+  </p>
+  <button onclick="nextPage('page2','page3')">Keep Going 💕</button>
+</section>
+
+<!-- PAGE 3 -->
+<section id="page3" class="hidden">
+  <h2>Little Moments We’ve Made 📸</h2>
+  <div class="media-center">
+    <img src="gifs/gif2.webp">
+  </div>
+  <p>Tap on a photo ✨</p>
+  <div class="gallery">
+    <div class="card" onclick="flip(this)">
+      <div class="card-face"><img src="img/image2.jpeg"></div>
+      <div class="card-face card-back">Our very first photo together(bby ab heels mat pehen na tumhare per dabane nhi aa pata hu).</div>
+    </div>
+    <div class="card" onclick="flip(this)">
+      <div class="card-face"><img src="img/image4.jpeg"></div>
+      <div class="card-face card-back">Humari clumsy eating capture kar li.</div>
+    </div>
+    <div class="card" onclick="flip(this)">
+      <div class="card-face"><img src="img/image1.png"></div>
+      <div class="card-face card-back">That Damn smile(iss pr toh hum fidaa hai).</div>
+    </div>
+    <div class="card" onclick="flip(this)">
+      <div class="card-face"><img src="img/image3.jpeg"></div>
+      <div class="card-face card-back">Already a day with you I just cannot forget.(Btw slaying as usual even after haircut you didnt like)</div>
+    </div>
+  </div>
+  <button onclick="nextPage('page3','page4')">Next 💘</button>
+</section>
+
+<!-- PAGE 4 -->
+<section id="page4" class="hidden">
+  <h2>Our Songs 🎶</h2>
+  <p>Some songs don’t just play… they remind me of you.</p>
+
+  <img class="page-gif left" src="gifs/music-love.gif" alt="cute gif" />
+
+  <div class="song-list">
+    <div class="playlist-item">
+      <p><strong>❤️ From me to you</strong><br>Aankhein teri kitni haseen(Muskurahat teri is zyda haseen btw :)</p>
+      <audio controls src="songs/aankhein teri.m4a"></audio>
+    </div>
+    <div class="playlist-item">
+      <p><strong>💕 From you to me</strong><br>Tumse Milke Dil Ka Hai Jo Haal(Mera haal toh kya he batau pure time tumhare notification ka wait krta rehta hai)</p>
+      <audio controls src="songs/dil-ka-haal.mp3"></audio>
+    </div>
+    <div class="playlist-item">
+      <p><strong>💕 From you to me</strong><br>Ucha Lamba Kad</p>
+      <audio controls src="songs/ucha-lamba-kad.mp3"></audio>
+    </div>
+  </div>
+
+  <button onclick="nextPage('page4','page5')">One Last Thing 💝</button>
+</section>
+
+<!-- PAGE 5 -->
+<section id="page5" class="hidden">
+  <h1>Happy Valentine’s Day, Muskan 🌹</h1>
+  <div class="media-center">
+    <img src="gifs/gif1.webp">
+  </div>
+  <p>
+    Thank you for matching with me on Hinge
+    You are someone I genuinely enjoy getting to know.
+    <br><br>
+    This thing I made can be very lame or cringe but that is how I feel for you,
+    and I do know that being - with you — means a lot to me ❤️
+  </p>
+</section>
+
+<script>
+  function nextPage(current, next) {
+    document.getElementById(current).classList.add('hidden');
+    document.getElementById(next).classList.remove('hidden');
+  }
+  function yesAnswer() { nextPage('page1','page2'); startHearts(); }
+  function moveButton() {
+    const btn = document.getElementById('noBtn');
+    btn.style.transform = `translate(${Math.random()*240-120}px, ${Math.random()*240-120}px)`;
+  }
+  function startHearts() {
+    setInterval(() => {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.innerText = Math.random() > 0.5 ? '❤️' : '💖';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (4 + Math.random() * 4) + 's';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 8000);
+    }, 260);
+  }
+  function flip(card) { card.classList.toggle('flipped'); }
+</script>
+
+</body>
+</html>
